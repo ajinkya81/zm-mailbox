@@ -57,7 +57,7 @@ jobs:
          name: Clone zm-soap-harness
          command: |
              cd "$BUILD"
-             git clone -b develop https://github.com/Zimbra/zm-soap-harness
+             git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
              echo 127.0.0.1 local.website.com | sudo tee -a /etc/hosts
              cat /etc/hosts
              sed -i 's/localhost/<< local.website.com >>/g' /home/build/zm-soap-harness/conf/global.properties
