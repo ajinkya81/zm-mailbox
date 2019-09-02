@@ -73,7 +73,9 @@ jobs:
              ant clean build-soap-data-file
       - run:
             name: Start test execution
-            command: sudo ant Run-SoapTestCore
+            command: |
+            cd /home/build/zm-soap-harness
+            sudo ant Run-SoapTestCore
       - persist_to_workspace:
           root: /home/build/
           paths:
