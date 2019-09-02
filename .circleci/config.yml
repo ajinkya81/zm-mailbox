@@ -64,8 +64,8 @@ jobs:
              git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
              echo 34.93.135.71 zcs-dev.test instance-1.asia-south1-a.c.charming-well-247401.internal | sudo tee -a /etc/hosts
              cat /etc/hosts
-             sed -i 's/zimbra.com/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
-             sed -i 's/localhost/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
+             sed -i 's/zimbra.com/instance-1.asia-south1-a.c.charming-well-247401.internal/g' /home/build/zm-soap-harness/conf/global.properties
+             sed -i 's/localhost/instance-1.asia-south1-a.c.charming-well-247401.internal/g' /home/build/zm-soap-harness/conf/global.properties
              cd zm-soap-harness
              ant clean build-soap-data-file
       - run:
