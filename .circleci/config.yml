@@ -4,7 +4,7 @@ version: 2
 references:
    default_environment_settings: &default_environment_settings
       docker:
-        - image: zimbra/zm-base-os:devcore-docker
+        - image: zimbra/zm-base-os:devcore-ubuntu-16.04
       environment:
         - ANT_OPTS: -Dzimbra.buildinfo.version=8.7.6_GA
         - BUILD: "/home/ubuntu"
