@@ -65,7 +65,7 @@ jobs:
       - *default_attach_workspace
       - run:
           name: Install npm
-          command: sudo apt-get update; sudo apt-get install npm
+          command: sudo apt-get update -y; sudo apt-get -y install npm
       - run:
           name: Install nodejs
           command: |
