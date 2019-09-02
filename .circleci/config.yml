@@ -17,9 +17,6 @@ references:
        branches:
          only:
            - develop
-   store-artifacts: &store-artifacts
-   store_artifacts:
-    path: /home/build/zm-soap-harness/soapvalidator
 
 ############################################################################
 
@@ -68,9 +65,7 @@ jobs:
              ant clean build-soap-data-file
       - run:
             name: Start test execution
-            command: |
-               sudo ant Run-SoapTestCore
-      - *store-artifacts
+            command: sudo ant Run-SoapTestCore
       - persist_to_workspace:
           root: /home/build/
           paths:
