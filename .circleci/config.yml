@@ -12,11 +12,6 @@ references:
    default_attach_workspace: &default_attach_workspace
          attach_workspace:
             at: /home/build
-   filter_branches: &filter_branches
-     filters:
-       branches:
-         only:
-           - develop
 
 ############################################################################
 
