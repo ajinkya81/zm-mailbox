@@ -34,6 +34,11 @@ jobs:
           name: Clone zm-timezones
           command: |
             cd "$BUILD"
+            mkdir -p /home/build/.zcs-deps
+            git clone -b develop https://github.com/Zimbra/zm-zcs.git 
+            git clone -b develop https://github.com/Zimbra/zimbra-package-stub.git 
+            sed -i 's,${dev.home},/home/build,g' /home/build/zm-zcs/ivysettings.xml
+            sed -i 's,${dev.home},/home/build,g' /home/build/zm-mailbox/build-ivysettings.xml
             git clone https://github.com/Zimbra/zm-timezones.git -b develop --single-branch || exit 1
       - run:
           name: Running ant compile in native directory
@@ -59,11 +64,6 @@ jobs:
          name: Clone zm-soap-harness
          command: |
              cd "$BUILD"
-             mkdir -p /home/build/.zcs-deps
-             git clone -b develop https://github.com/Zimbra/zm-zcs.git 
-             git clone -b develop https://github.com/Zimbra/zimbra-package-stub.git 
-             sed -i 's,${dev.home},/home/build,g' /home/build/zm-zcs/ivysettings.xml
-             sed -i 's,${dev.home},/home/build,g' /home/build/zm-mailbox/build-ivysettings.xml
              git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
              echo 127.0.0.1 zcs-dev.test | sudo tee -a /etc/hosts
              cat /etc/hosts
