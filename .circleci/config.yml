@@ -4,7 +4,7 @@ version: 2
 references:
    default_environment_settings: &default_environment_settings
       docker:
-        - image: circleci/ubuntu-1604-xenial-v20190816
+        - image: zimbra/zcs-dev:8.8.9ga
       environment:
         - ANT_OPTS: -Dzimbra.buildinfo.version=8.7.6_GA
         - BUILD: "/home/build"
@@ -67,7 +67,7 @@ jobs:
          command: |
              cd "$BUILD"
              git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
-             echo 127.0.0.1 zcs-dev.test | sudo tee -a /etc/hosts
+             echo 34.93.135.71 zcs-dev.test instance-1.asia-south1-a.c.charming-well-247401.internal | sudo tee -a /etc/hosts
              cat /etc/hosts
              sed -i 's/zimbra.com/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
              sed -i 's/localhost/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
