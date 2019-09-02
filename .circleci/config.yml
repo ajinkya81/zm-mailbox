@@ -1,7 +1,6 @@
 version: 2
 
 ############################################################################
-
 references:
    default_environment_settings: &default_environment_settings
       docker:
