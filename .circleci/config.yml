@@ -12,7 +12,6 @@ references:
    default_attach_workspace: &default_attach_workspace
          attach_workspace:
             at: /home/build
-
 ############################################################################
 
 jobs:
@@ -57,19 +56,37 @@ jobs:
           name: Running ant compile in store directory
           command: ant clean compile publish-local
           working_directory: store
+      - persist_to_workspace:
+          root: /home/build/
+          paths:
+            - zm-timezones
+            - zm-mailbox
+            - .ssh
+            - .zcs-deps
+            - .ivy2/cache
+  soap:
+    <<: *default_environment_settings
+    steps:
+      - *default_attach_workspace 
       - run:
          name: Clone zm-soap-harness
          command: |
              cd "$BUILD"
              git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
+      - run:
+         name: Update Hostname
+         command: |
              echo 34.93.135.71 zcs-dev.test instance-1.asia-south1-a.c.charming-well-247401.internal | sudo tee -a /etc/hosts
              cat /etc/hosts
              sed -i 's/zimbra.com/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
              sed -i 's/localhost/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
-             cd zm-soap-harness
+      - run:  
+        name: Build soap harness jars
+        command: | 
+             cd /home/build/zm-soap-harness
              ant clean build-soap-data-file
       - run:
-            name: Start test execution
+            name: Start soap tests execution
             command: |
                cd /home/build/zm-soap-harness
                sudo ant Run-SoapTestCore
@@ -77,11 +94,6 @@ jobs:
           root: /home/build/
           paths:
             - zm-soap-harness
-            - zm-timezones
-            - zm-mailbox
-            - .ssh
-            - .zcs-deps
-            - .ivy2/cache
   test:
     <<: *default_environment_settings
     steps:
@@ -139,4 +151,8 @@ workflows:
       - test:
           requires:
             - build
+      - soap:
+          requires:
+            - build
+            - test
 ############################################################################
