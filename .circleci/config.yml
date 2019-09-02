@@ -67,7 +67,9 @@ jobs:
   soap:
     <<: *default_environment_settings
     steps:
-      - *default_attach_workspace 
+      - *default_attach_workspace
+      - add_ssh_keys:
+         fingerprints: fa:6d:f0:c4:7d:0e:1f:aa:33:e7:83:fb:86:a2:cc:3d
       - run:
          name: Clone zm-soap-harness
          command: |
