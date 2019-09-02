@@ -37,6 +37,11 @@ jobs:
             sed -i 's,${dev.home},/home/build,g' /home/build/zm-mailbox/build-ivysettings.xml
             git clone https://github.com/Zimbra/zm-timezones.git -b develop --single-branch || exit 1
       - run:
+          name: Clone zm-soap-harness
+          command: |
+            cd "$BUILD"
+            git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
+      - run:
           name: Running ant compile in native directory
           command: ant clean compile publish-local
           working_directory: native
@@ -61,6 +66,7 @@ jobs:
           paths:
             - zm-timezones
             - zm-mailbox
+            - zm-soap-harness
             - .ssh
             - .zcs-deps
             - .ivy2/cache
@@ -68,34 +74,23 @@ jobs:
     <<: *default_environment_settings
     steps:
       - *default_attach_workspace
-      - add_ssh_keys:
-         fingerprints: fa:6d:f0:c4:7d:0e:1f:aa:33:e7:83:fb:86:a2:cc:3d
       - run:
-         name: Clone zm-soap-harness
-         command: |
-             cd "$BUILD"
-             git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
-      - run:
-         name: Update Hostname
-         command: |
-             echo 34.93.135.71 zcs-dev.test instance-1.asia-south1-a.c.charming-well-247401.internal | sudo tee -a /etc/hosts
-             cat /etc/hosts
-             sed -i 's/zimbra.com/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
-             sed -i 's/localhost/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
+          name: Update Hostname
+          command: |
+            echo 34.93.135.71 zcs-dev.test instance-1.asia-south1-a.c.charming-well-247401.internal | sudo tee -a /etc/hosts
+            cat /etc/hosts
+            sed -i 's/zimbra.com/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
+            sed -i 's/localhost/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
       - run:  
-         name: Build soap harness jars
-         command: | 
-             cd /home/build/zm-soap-harness
-             ant clean build-soap-data-file
+          name: Build soap harness jars
+          command: | 
+            cd /home/build/zm-soap-harness
+            ant clean build-soap-data-file
       - run:
-         name: Start soap tests execution
-         command: |
-             cd /home/build/zm-soap-harness
-             sudo ant Run-SoapTestCore
-      - persist_to_workspace:
-          root: /home/build/
-          paths:
-            - zm-soap-harness
+          name: Start soap tests execution
+          command: |
+            cd /home/build/zm-soap-harness
+            sudo ant Run-SoapTestCore
   test:
     <<: *default_environment_settings
     steps:
