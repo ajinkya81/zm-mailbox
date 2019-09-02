@@ -34,6 +34,7 @@ jobs:
           name: Clone zm-timezones
           command: |
             cd "$BUILD"
+            mkdir -p ~/.ivy2/cache
             mkdir -p /home/build/.zcs-deps
             mkdir -p /home/build/.ivy2/cache
             git clone -b develop https://github.com/Zimbra/zm-zcs.git 
