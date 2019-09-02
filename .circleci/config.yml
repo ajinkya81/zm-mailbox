@@ -4,7 +4,7 @@ version: 2
 references:
    default_environment_settings: &default_environment_settings
       docker:
-        - image: zimbra/zcs-dev:8.8.9ga
+        - image: circleci/ubuntu-1604-xenial-v20190816
       environment:
         - ANT_OPTS: -Dzimbra.buildinfo.version=8.7.6_GA
         - BUILD: "/home/build"
