@@ -17,6 +17,10 @@ references:
        branches:
          only:
            - develop
+   store-artifacts: &store-artifacts
+   store_artifacts:
+    path: /home/build/zm-soap-harness/soapvalidator
+
 ############################################################################
 
 jobs:
@@ -52,9 +56,25 @@ jobs:
           name: Running ant compile in store directory
           command: ant clean compile publish-local
           working_directory: store
+      - run:
+         name: Clone zm-soap-harness
+         command: |
+             cd "$BUILD"
+             git clone -b develop https://github.com/Zimbra/zm-soap-harness
+             echo 127.0.0.1 local.website.com | sudo tee -a /etc/hosts
+             cat /etc/hosts
+             sed -i 's/localhost/<< local.website.com >>/g' /home/build/zm-soap-harness/conf/global.properties
+             cd zm-soap-harness
+             ant clean build-soap-data-file
+      - run:
+            name: Start test execution
+            command: |
+               sudo ant Run-SoapTestCore
+      - *store-artifacts
       - persist_to_workspace:
           root: /home/build/
           paths:
+            - zm-soap-harness
             - zm-timezones
             - zm-mailbox
             - .ssh
