@@ -35,6 +35,7 @@ jobs:
           command: |
             cd "$BUILD"
             mkdir -p /home/build/.zcs-deps
+            mkdir -p /home/build/.ivy2/cache
             git clone -b develop https://github.com/Zimbra/zm-zcs.git 
             git clone -b develop https://github.com/Zimbra/zimbra-package-stub.git 
             sed -i 's,${dev.home},/home/build,g' /home/build/zm-zcs/ivysettings.xml
@@ -84,6 +85,7 @@ jobs:
             - zm-mailbox
             - .ssh
             - .zcs-deps
+            - .ivy2/cache
   test:
     <<: *default_environment_settings
     steps:
