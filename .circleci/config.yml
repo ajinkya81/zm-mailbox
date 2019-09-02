@@ -4,7 +4,7 @@ version: 2
 references:
    default_environment_settings: &default_environment_settings
       docker:
-        - image: zimbra/zcs-dev:8.8.12ga
+        - image: zimbra/zcs-dev:8.8.9ga
       environment:
         - ANT_OPTS: -Dzimbra.buildinfo.version=8.7.6_GA
         - BUILD: "/home/build"
@@ -58,7 +58,6 @@ jobs:
       - run:
          name: Clone zm-soap-harness
          command: |
-             docker-compose up -d
              cd "$BUILD"
              mkdir -p /home/build/.zcs-deps
              git clone -b develop https://github.com/Zimbra/zm-zcs.git 
