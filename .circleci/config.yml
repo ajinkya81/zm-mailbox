@@ -62,12 +62,12 @@ jobs:
              mkdir -p /home/build/.zcs-deps
              git clone -b develop https://github.com/Zimbra/zm-zcs.git 
              git clone -b develop https://github.com/Zimbra/zimbra-package-stub.git 
-             sed -i 's,${dev.home},/home/build,g' ~/repo/zm-zcs/ivysettings.xml
-             sed -i 's,${dev.home},/home/build,g' ~/repo/zm-mailbox/build-ivysettings.xml
+             sed -i 's,${dev.home},/home/build,g' /home/build/zm-zcs/ivysettings.xml
+             sed -i 's,${dev.home},/home/build,g' /home/build/zm-mailbox/build-ivysettings.xml
              git clone -b develop git@github.com:Zimbra/zm-soap-harness.git
              echo 127.0.0.1 local.website.com | sudo tee -a /etc/hosts
              cat /etc/hosts
-             sed -i 's/zimbra.com/<< local.website.com >>/g' ~/repo/zm-soap-harness/conf/global.properties
+             sed -i 's/zimbra.com/<< local.website.com >>/g' /home/build/zm-soap-harness/conf/global.properties
              sed -i 's/localhost/<< local.website.com >>/g' /home/build/zm-soap-harness/conf/global.properties
              cd zm-soap-harness
              ant clean build-soap-data-file
