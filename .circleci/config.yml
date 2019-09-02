@@ -81,15 +81,15 @@ jobs:
              sed -i 's/zimbra.com/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
              sed -i 's/localhost/zcs-dev.test/g' /home/build/zm-soap-harness/conf/global.properties
       - run:  
-        name: Build soap harness jars
-        command: | 
+         name: Build soap harness jars
+         command: | 
              cd /home/build/zm-soap-harness
              ant clean build-soap-data-file
       - run:
-            name: Start soap tests execution
-            command: |
-               cd /home/build/zm-soap-harness
-               sudo ant Run-SoapTestCore
+         name: Start soap tests execution
+         command: |
+             cd /home/build/zm-soap-harness
+             sudo ant Run-SoapTestCore
       - persist_to_workspace:
           root: /home/build/
           paths:
