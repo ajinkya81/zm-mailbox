@@ -12,7 +12,6 @@ references:
    default_attach_workspace: &default_attach_workspace
          attach_workspace:
             at: /home/build
-
 ############################################################################
 
 jobs:
