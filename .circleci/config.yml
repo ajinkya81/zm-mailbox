@@ -24,6 +24,8 @@ jobs:
   build:
     <<: *default_environment_settings
     steps:
+      - add_ssh_keys:
+          fingerprints: fa:6d:f0:c4:7d:0e:1f:aa:33:e7:83:fb:86:a2:cc:3d
       - checkout
       - run:
           name: Install ant-contrib
