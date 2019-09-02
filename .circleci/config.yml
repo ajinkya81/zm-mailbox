@@ -7,11 +7,11 @@ references:
         - image: zimbra/zm-base-os:devcore-ubuntu-16.04
       environment:
         - ANT_OPTS: -Dzimbra.buildinfo.version=8.7.6_GA
-        - BUILD: "/home/ubuntu"
-      working_directory: /home/ubuntu/zm-mailbox
+        - BUILD: "/home/build"
+      working_directory: /home/build/zm-mailbox
    default_attach_workspace: &default_attach_workspace
          attach_workspace:
-            at: /home/ubuntu
+            at: /home/build
    filter_branches: &filter_branches
      filters:
        branches:
@@ -53,7 +53,7 @@ jobs:
           command: ant clean compile publish-local
           working_directory: store
       - persist_to_workspace:
-          root: /home/ubuntu/
+          root: /home/build/
           paths:
             - zm-timezones
             - zm-mailbox
