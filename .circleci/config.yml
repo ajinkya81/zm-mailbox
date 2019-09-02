@@ -66,6 +66,8 @@ jobs:
           paths:
             - zm-timezones
             - zm-mailbox
+            - zm-zcs
+            - zimbra-package-stub
             - zm-soap-harness
             - .ssh
             - .zcs-deps
