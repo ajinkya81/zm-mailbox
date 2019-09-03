@@ -147,7 +147,7 @@ workflows:
   build_deploy:
     jobs:
       - build
-      - smoke-test-approval: 
+      - soap-test-approval: 
           type: approval
           requires:
             - build
@@ -156,6 +156,5 @@ workflows:
             - build
       - soap:
           requires:
-            - build
-            - unit
+            - soap-test-approval
 ############################################################################
