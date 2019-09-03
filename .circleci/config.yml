@@ -93,7 +93,7 @@ jobs:
           command: |
             cd /home/build/zm-soap-harness
             sudo ant Run-SoapTestCore
-  test:
+  unit:
     <<: *default_environment_settings
     steps:
       - *default_attach_workspace
@@ -147,11 +147,15 @@ workflows:
   build_deploy:
     jobs:
       - build
-      - test:
+      - smoke-test-approval: 
+          type: approval
+          requires:
+            - build
+      - unit:
           requires:
             - build
       - soap:
           requires:
             - build
-            - test
+            - unit
 ############################################################################
