@@ -147,11 +147,11 @@ workflows:
   build_deploy:
     jobs:
       - build
-      - soap-test-approval: 
-          type: approval
+      - unit:
           requires:
             - build
-      - unit:
+      - soap-test-approval: 
+          type: approval
           requires:
             - build
       - soap:
